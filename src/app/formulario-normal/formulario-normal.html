@@ -1,1 +1,12 @@
 <p>formulario-normal works!</p>
+<form (ngSubmit)="enviar()" #miForm="ngForm">
+    <label>
+        Nombre:
+        <input type="text" name="name" required [(ngModel)]="name">
+    </label>
+    <input type="submit" [disabled]="miForm.invalid" value="Enviar">
+
+    @for (n of names; track n) {
+    <p>{{n}}</p>
+    }
+</form>
