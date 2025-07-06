@@ -1,4 +1,4 @@
-<p>formulario-reactivo works!</p>
+<p>formulario reactivo validando texto y correo</p>
 <form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
     <label>
         Name
@@ -8,9 +8,46 @@
         Email
         <input type="email" formControlName="email" />
     </label>
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
 
     <h2>Profile Form</h2>
     <p>Name: {{ profileForm.value.name }}</p>
     <p>Email: {{ profileForm.value.email }}</p>
+</form>
+<br/>
+<p>formulario reactivo 2 validando texto y correo agregandp a una lista</p>
+<form [formGroup]="formulario" (ngSubmit)="addEmail()">
+    <label>Nombre:
+        <input type="text" formControlName="nombre" />
+    </label>
+    @if (formulario.get('nombre')?.touched && formulario.get('nombre')?.invalid) {
+    <div>
+        <small> Nombre es obligatorio</small>
+    </div>
+    }
+    <label>Email:
+        <input type="email" formControlName="email" />
+    </label>
+    @if (formulario.get('email')?.touched && formulario.get('email')?.errors) {
+    <div>
+        @if (formulario.get('email')?.errors?.['required']) {
+        <small> Email es obligatorio</small>
+        }
+        @if (formulario.get('email')?.errors?.['email']) {
+        <small>Email invalido</small>
+        }
+    </div>
+    }
+    <button type="submit" [disabled]=!formulario.valid>Guardar</button>
+
+    <p>Formulario Reactivo agregando a lista de correo</p>
+    <p>Nombre: {{formulario.value.nombre}}</p>
+    <p>Nombre: {{formulario.value.email}}</p>
+
+    <h2>Lista de Correos</h2>
+    @for(correo of listaCorreos; track correo){
+    <ul class="correo">
+        <li>{{correo}}</li>
+    </ul>
+    }
 </form>
